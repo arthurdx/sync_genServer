@@ -68,10 +68,11 @@ defmodule DeviceSession do
   defp calculate_diff(device_inventory) do
     device_ids = MapSet.new(device_inventory)
     server_records = [
-      %{id: 20, deleted: false},
-      %{id: 30, deleted: true},
-      %{id: 50, deleted: false},
-      %{id: 60, deleted: true}
+      %{id: <<0, 0, 0, 0, 0, 1>>, deleted: false},
+      %{id: <<0, 0, 0, 0, 0, 2>>, deleted: true},
+      %{id: <<0, 0, 0, 0, 0, 3>>, deleted: false},
+      %{id: <<0, 0, 0, 0, 0, 4>>, deleted: true},
+      %{id: <<0, 0, 0, 0, 0, 5>>, deleted: false},
     ]
 
     server_ids = server_records |> MapSet.new(fn record -> record.id end)
@@ -81,5 +82,5 @@ defmodule DeviceSession do
       |> MapSet.new(fn record -> record.id end) |> MapSet.intersection(device_ids)
 
     %{server_ids: server_ids,upload: upload, deploy: deploy, remove: remove}
-  end
+  end 
 end
